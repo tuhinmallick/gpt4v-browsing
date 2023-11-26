@@ -57,15 +57,14 @@ while True:
         exitcode = result.returncode
         output = result.stdout
 
-        if not os.path.exists("screenshot.jpg"):
-            print("ERROR: Trying different URL")
-            messages.append({
-                "role": "user",
-                "content": "I was unable to crawl that site. Please pick a different one."
-            })
-        else:
+        if os.path.exists("screenshot.jpg"):
             break
 
+        print("ERROR: Trying different URL")
+        messages.append({
+            "role": "user",
+            "content": "I was unable to crawl that site. Please pick a different one."
+        })
     b64_image = image_b64("screenshot.jpg")
 
     response = model.chat.completions.create(
